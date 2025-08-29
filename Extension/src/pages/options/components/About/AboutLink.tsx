@@ -18,28 +18,28 @@
 
 import React from 'react';
 
-import { translator } from '../../../../common/translators/translator';
+import { Icon } from '../../../common/components/ui/Icon';
 
 import './about-page.pcss';
 
 type AboutLinkProps = {
     href: string;
-    translatorKey: string;
+    title: string;
 };
 
 const AboutLink = ({
     href,
-    translatorKey,
+    title,
 }: AboutLinkProps) => {
     return (
         <a
             target="_blank"
             rel="noopener noreferrer"
             href={href}
-            className="links-menu__item button--link--green about__link"
+            className="links-menu__item button--link--green"
         >
-            {translator.getMessage(translatorKey)}
-            <div className="about__link-icon" />
+            {title}
+            <Icon id="#link" classname="icon--24 about__link-icon" />
         </a>
     );
 };

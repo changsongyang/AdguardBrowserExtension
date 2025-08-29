@@ -82,12 +82,12 @@ const About = observer(() => {
                     {translator.getMessage('options_copyright')}
                 </div>
                 <div className="links-menu">
-                    <AboutLink href={CHANGELOG_URL} translatorKey="options_open_changelog" />
-                    <AboutLink href={PRIVACY_URL} translatorKey="options_privacy_policy" />
-                    <AboutLink href={WEBSITE_URL} translatorKey="options_site" />
-                    <AboutLink href={DISCUSS_URL} translatorKey="options_discuss" />
-                    <AboutLink href={ACKNOWLEDGMENTS_URL} translatorKey="options_acknowledgment" />
-                    <AboutLink href={GITHUB_URL} translatorKey="options_github" />
+                    <AboutLink href={CHANGELOG_URL} title={translator.getMessage('options_open_changelog')} />
+                    <AboutLink href={PRIVACY_URL} title={translator.getMessage('options_privacy_policy')} />
+                    <AboutLink href={WEBSITE_URL} title={translator.getMessage('options_site')} />
+                    <AboutLink href={DISCUSS_URL} title={translator.getMessage('options_discuss')} />
+                    <AboutLink href={ACKNOWLEDGMENTS_URL} title={translator.getMessage('options_acknowledgment')} />
+                    <AboutLink href={GITHUB_URL} title={translator.getMessage('options_github')} />
                 </div>
             </div>
         </>
