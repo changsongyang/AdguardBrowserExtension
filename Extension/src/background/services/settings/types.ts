@@ -121,31 +121,32 @@ export type GetOptionsDataResponse = {
     fullscreenUserRulesEditorIsOpen: boolean;
 
     /**
-     * Whether the rule limits are exceeded
-     * and browser changed the list of enabled filters.
+     * MV3-specific options.
      *
-     * Used in MV3.
+     * This field is:
+     * - null for MV2;
+     * - contains MV3-specific properties for MV3.
      */
-    areFilterLimitsExceeded: boolean;
+    mv3SpecificOptions: null | {
+        /**
+         * Whether the rule limits are exceeded
+         * and browser changed the list of enabled filters.
+         */
+        areFilterLimitsExceeded: boolean;
 
-    /**
-     * Whether the extension update is available after the checking.
-     *
-     * Used in MV3.
-     */
-    isExtensionUpdateAvailable: boolean;
+        /**
+         * Whether the extension update is available after the checking.
+         */
+        isExtensionUpdateAvailable: boolean;
 
-    /**
-     * Whether the extension was reloaded after update.
-     *
-     * Used in MV3.
-     */
-    isExtensionReloadedOnUpdate: boolean;
+        /**
+         * Whether the extension was reloaded after update.
+         */
+        isExtensionReloadedOnUpdate: boolean;
 
-    /**
-     * Whether the extension update was successful.
-     *
-     * Used in MV3.
-     */
-    isSuccessfulExtensionUpdate: boolean;
+        /**
+         * Whether the extension update was successful.
+         */
+        isSuccessfulExtensionUpdate: boolean;
+    };
 };

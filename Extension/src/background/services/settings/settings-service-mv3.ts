@@ -146,10 +146,12 @@ export class SettingsService {
             },
             filtersMetadata: Categories.getCategories(),
             fullscreenUserRulesEditorIsOpen: fullscreenUserRulesEditor.isOpen(),
-            areFilterLimitsExceeded,
-            isExtensionUpdateAvailable,
-            isExtensionReloadedOnUpdate,
-            isSuccessfulExtensionUpdate: !!manualExtensionUpdateData?.isOk,
+            mv3SpecificOptions: {
+                areFilterLimitsExceeded,
+                isExtensionUpdateAvailable,
+                isExtensionReloadedOnUpdate,
+                isSuccessfulExtensionUpdate: !!manualExtensionUpdateData?.isOk,
+            },
         };
     }
 

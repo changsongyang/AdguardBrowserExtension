@@ -70,30 +70,34 @@ export type GetTabInfoForPopupResponse = {
     settings: SettingsData;
 
     /**
-     * Whether the filter limits are exceeded.
+     * MV3-specific options.
      *
-     * Needed only for MV3.
+     * This field is:
+     * - null for MV2;
+     * - contains MV3-specific properties for MV3.
      */
-    areFilterLimitsExceeded: boolean;
+    mv3SpecificOptions: null | {
+        /**
+         * Whether the rule limits are exceeded
+         * and browser changed the list of enabled filters.
+         */
+        areFilterLimitsExceeded: boolean;
 
-    /**
-     * Whether an extension update is available.
-     */
-    isExtensionUpdateAvailable: boolean;
+        /**
+         * Whether the extension update is available after the checking.
+         */
+        isExtensionUpdateAvailable: boolean;
 
-    /**
-     * Whether the extension is reloaded on update.
-     *
-     * Needed only for MV3.
-     */
-    isExtensionReloadedOnUpdate: boolean;
+        /**
+         * Whether the extension was reloaded after update.
+         */
+        isExtensionReloadedOnUpdate: boolean;
 
-    /**
-     * Whether the extension update was successful.
-     *
-     * Needed only for MV3.
-     */
-    isSuccessfulExtensionUpdate: boolean;
+        /**
+         * Whether the extension update was successful.
+         */
+        isSuccessfulExtensionUpdate: boolean;
+    };
 
     /**
      * Various options.
@@ -213,12 +217,14 @@ export class PopupService {
                 frameInfo: FramesApi.getMainFrameData(tabContext),
                 stats: PageStatsApi.getStatisticsData(),
                 settings: SettingsApi.getData(),
-                areFilterLimitsExceeded: __IS_MV3__
-                    ? await RulesLimitsService.areFilterLimitsExceeded()
-                    : false,
-                isExtensionUpdateAvailable,
-                isExtensionReloadedOnUpdate,
-                isSuccessfulExtensionUpdate,
+                mv3SpecificOptions: __IS_MV3__
+                    ? {
+                        areFilterLimitsExceeded: await RulesLimitsService.areFilterLimitsExceeded(),
+                        isExtensionUpdateAvailable,
+                        isExtensionReloadedOnUpdate,
+                        isSuccessfulExtensionUpdate,
+                    }
+                    : null,
                 options: {
                     showStatsSupported: true,
                     isFirefoxBrowser: UserAgent.isFirefox,
