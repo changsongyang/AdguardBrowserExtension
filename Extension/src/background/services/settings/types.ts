@@ -18,6 +18,7 @@
 
 import { type AntiBannerFiltersId } from '../../../common/constants';
 import { type CategoriesData, type SettingsData } from '../../api';
+import { type MV3SpecificOptions } from '../types';
 
 /**
  * Settings data to be exported.
@@ -124,29 +125,8 @@ export type GetOptionsDataResponse = {
      * MV3-specific options.
      *
      * This field is:
-     * - null for MV2;
-     * - contains MV3-specific properties for MV3.
+     * - contains MV3-specific properties for MV3;
+     * - null for MV2.
      */
-    mv3SpecificOptions: null | {
-        /**
-         * Whether the rule limits are exceeded
-         * and browser changed the list of enabled filters.
-         */
-        areFilterLimitsExceeded: boolean;
-
-        /**
-         * Whether the extension update is available after the checking.
-         */
-        isExtensionUpdateAvailable: boolean;
-
-        /**
-         * Whether the extension was reloaded after update.
-         */
-        isExtensionReloadedOnUpdate: boolean;
-
-        /**
-         * Whether the extension update was successful.
-         */
-        isSuccessfulExtensionUpdate: boolean;
-    };
+    mv3SpecificOptions: MV3SpecificOptions | null;
 };
