@@ -155,17 +155,26 @@ pnpm test
 Running integration tests:
 
 ```shell
-pnpm test:integration <MODE>
-# MODE can be 'dev', 'beta', 'release', same as build targets.
+pnpm test:integration <TARGET>
+# TARGET can be 'dev', 'beta', 'release', same as build targets.
+```
+
+Running integration tests with userscripts mode selection:
+
+```shell
+pnpm test:integration <TARGET> [-u <USERSCRIPTS_MODE>]
+# TARGET can be 'dev', 'beta', 'release', same as build targets.
+# USERSCRIPTS_MODE can be 'enabled' or 'disabled' (default: both modes)
 ```
 
 Running integration tests with enabling debug mode (page will be stopped after
 tests execution) for one of them:
 
 ```shell
-pnpm test:integration <MODE> [-d <TEST_ID>]
-# MODE can be 'dev', 'beta', 'release', same as build targets.
+pnpm test:integration <TARGET> [-d <TEST_ID>] [-u <USERSCRIPTS_MODE>]
+# TARGET can be 'dev', 'beta', 'release', same as build targets.
 # TEST_ID can be extracted from https://testcases.agrd.dev/data.json
+# USERSCRIPTS_MODE can be 'enabled' or 'disabled' (default: both modes)
 ```
 
 Run the following command to build the dev version:
@@ -310,8 +319,24 @@ pnpm resources
 > [!TIP]
 > Run `pnpm resources:mv3` to download resources for MV3 version.
 
-This command also checks if there are dangerous rules in the filters.
-See [dangerous rules](tools/resources/dangerous-rules/README.md)
+#### Resources Process
+
+The `pnpm resources` command performs the following steps:
+
+1. **Downloads filters**: Fetches filter metadata and filter rules from the AdGuard filters repository
+2. **Updates local script rules**: Extract script rules inside separate file only for firefox.
+3. **Finds dangerous rules** (optional): If `OPENAI_API_KEY` environment variable is provided, uses OpenAI API to analyze and identify potentially dangerous rules in the filters
+
+For MV3 version (`pnpm resources:mv3`), the process includes additional steps:
+
+1. **Updates dnr-rulesets package**: Installs the latest `@adguard/dnr-rulesets` package
+2. **Updates local test script rules**: Fetches all script rules from test cases and updates local resources
+3. **Downloads and prepares MV3 filters**: Downloads filters and converts them to declarative format
+4. **Updates local resources for MV3**: Processes and updates local script resources for Chromium MV3
+5. **Finds dangerous rules** (optional): If `OPENAI_API_KEY` environment variable is provided, uses OpenAI API to analyze and identify potentially dangerous rules in the filters
+6. **Extracts unsafe rules**: Runs a separate command to identify and extract unsafe rules to ruleset metadata
+
+See [dangerous rules documentation](tools/resources/dangerous-rules/README.md) for more details about the dangerous rules detection process.
 
 ```shell
 pnpm beta
